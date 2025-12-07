@@ -1,101 +1,52 @@
-const API = "http://localhost:5000/api";
+let posts = [];
 
-async function register() {
-  let data = {
-    username: username.value,
-    email: email.value,
-    password: password.value,
+function createPost() {
+  const text = document.getElementById("postInput").value;
+  if (text.trim() === "") return;
+
+  const post = {
+    id: Date.now(),
+    name: "You",
+    profile: "https://i.pravatar.cc/40",
+    text: text,
+    likes: 0,
+    liked: false
   };
 
-  await fetch(`${API}/auth/register`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(data),
-  });
-
-  alert("Registered!");
+  posts.unshift(post);
+  document.getElementById("postInput").value = "";
+  renderPosts();
 }
 
-async function login() {
-  let data = {
-    email: email.value,
-    password: password.value,
-  };
-
-  let res = await fetch(`${API}/auth/login`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(data),
-  });
-
-  let out = await res.json();
-
-  if (out.user) {
-    localStorage.setItem("user", out.user.username);
-    window.location.href = "feed.html";
-  } else alert(out.message);
+function toggleLike(id) {
+  const post = posts.find(p => p.id === id);
+  post.liked = !post.liked;
+  post.likes += post.liked ? 1 : -1;
+  renderPosts();
 }
 
-async function createPost() {
-  const form = new FormData();
-  form.append("user", localStorage.getItem("user"));
-  form.append("text", document.getElementById("postText").value);
-  form.append("image", document.getElementById("postImage").files[0]);
+function renderPosts() {
+  const container = document.getElementById("posts");
+  container.innerHTML = "";
 
-  await fetch(`${API}/posts/create`, {
-    method: "POST",
-    body: form,
-  });
-
-  loadPosts();
-}
-
-async function loadPosts() {
-  let res = await fetch(`${API}/posts`);
-  let posts = await res.json();
-
-  const feed = document.getElementById("feed");
-  feed.innerHTML = "";
-
-  posts.forEach(p => {
-    feed.innerHTML += `
+  posts.forEach(post => {
+    container.innerHTML += `
       <div class="post">
-        <h3>@${p.user}</h3>
-        <p>${p.text}</p>
-        ${p.image ? `<img src="http://localhost:5000/${p.image}" width="100%">` : ""}
-        <button onclick="likePost('${p._id}')">❤️ ${p.likes}</button>
-        <br><br>
-        <input id="c${p._id}" placeholder="Comment">
-        <button onclick="comment('${p._id}')">Comment</button>
+        <div class="post-header">
+          <img src="${post.profile}">
+          <strong>${post.name}</strong>
+        </div>
 
-        <div>
-          ${p.comments.map(c => `<p><b>${c.user}:</b> ${c.text}</p>`).join("")}
+        <p>${post.text}</p>
+
+        <div class="post-actions">
+          <span class="like ${post.liked ? "liked" : ""}" onclick="toggleLike(${post.id})">❤️</span>
+          <span>💬</span>
+          <span>↗</span>
         </div>
       </div>
     `;
   });
 }
 
-async function likePost(id) {
-  await fetch(`${API}/posts/like/${id}`, { method: "POST" });
-  loadPosts();
-}
-
-async function comment(id) {
-  const commentText = document.getElementById(`c${id}`).value;
-
-  await fetch(`${API}/posts/comment/${id}`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      user: localStorage.getItem("user"),
-      text: commentText,
-    }),
-  });
-
-  loadPosts();
-}
-
-if (document.body.contains(document.getElementById("feed"))) {
-  loadPosts();
-}
+renderPosts();
