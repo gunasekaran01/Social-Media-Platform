@@ -1,17 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Social Media Login</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Platform</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <h2>Login / Register</h2>
 
-  <input id="username" placeholder="Username">
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="register()">Register</button>
-  <button onclick="login()">Login</button>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <h2 class="logo">SocialSphere</h2>
+    <div class="nav-user">
+      <img src="https://i.pravatar.cc/40" class="profile-img" alt="User">
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <ul>
+        <li class="active">🏠 Home</li>
+        <li>👤 Profile</li>
+        <li>🔔 Notifications</li>
+        <li>⚙ Settings</li>
+      </ul>
+    </aside>
+
+    <!-- MAIN FEED -->
+    <main class="feed">
+
+      <!-- CREATE POST -->
+      <div class="create-post">
+        <div class="user-img">
+          <img src="https://i.pravatar.cc/40" alt="">
+        </div>
+        <input type="text" id="postInput" placeholder="What's on your mind?">
+        <button onclick="createPost()">Post</button>
+      </div>
+
+      <!-- POSTS WILL APPEAR HERE -->
+      <div id="posts"></div>
+
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="rightbar">
+      <h3>Suggested People</h3>
+
+      <div class="suggestion">
+        <img src="https://i.pravatar.cc/45?img=10">
+        <div>
+          <p><strong>Rahul Kumar</strong></p>
+          <p class="small">2M followers</p>
+        </div>
+        <button class="follow-btn">Follow</button>
+      </div>
+
+      <div class="suggestion">
+        <img src="https://i.pravatar.cc/45?img=20">
+        <div>
+          <p><strong>Meera Sharma</strong></p>
+          <p class="small">250k followers</p>
+        </div>
+        <button class="follow-btn">Follow</button>
+      </div>
+
+    </aside>
+
+  </div>
 
   <script src="script.js"></script>
 </body>
