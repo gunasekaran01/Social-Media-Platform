@@ -1,31 +1,158 @@
 body {
+  margin: 0;
+  background: #f0f2f5;
   font-family: Arial;
-  text-align: center;
-  background: #f4f4f4;
 }
 
-input, textarea {
+/* NAVBAR */
+.navbar {
+  background: #1a73e8;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  margin: 0;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* LAYOUT */
+.container {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* SIDEBAR */
+.sidebar, .rightbar {
+  width: 240px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.sidebar li:hover, .sidebar .active {
+  background: #e1ecff;
+  color: #1a73e8;
+}
+
+/* FEED */
+.feed {
+  flex: 1;
+}
+
+/* CREATE POST */
+.create-post {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-img img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.create-post input {
+  flex: 1;
   padding: 10px;
-  width: 300px;
-  margin: 5px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
 }
 
-button {
-  padding: 10px 20px;
-  background: #007bff;
+.create-post button {
+  padding: 10px 16px;
+  background: #1a73e8;
   color: white;
   border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-#feed {
-  width: 500px;
-  margin: auto;
-  text-align: left;
-}
-
+/* POST CARD */
 .post {
   background: white;
   padding: 15px;
-  margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-header img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+.post-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 15px;
+  font-size: 20px;
+}
+
+.like {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.like.liked {
+  color: red;
+  transform: scale(1.2);
+}
+
+/* RIGHT BAR */
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.suggestion img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.follow-btn {
+  margin-left: auto;
+  padding: 6px 12px;
+  background: #1a73e8;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.small {
+  font-size: 12px;
+  color: gray;
 }
